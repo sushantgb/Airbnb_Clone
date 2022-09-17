@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* navigation styles */
+
+nav{
+    display: flex;
+    gap: 2em;
+    padding: 1em 5em;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 1px 0px 4px black;
+}
+
+nav img{
+    height: 3em;
+}
+
+.alternates{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 3em;
+    gap: 1em;
+    border-style: none;
+    padding: 1em;
+    border-radius: 2em;
+    box-shadow: 1px 0px 4px black;
+}
+
+.alternates a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.alternates input{
+    border-style: none;
+    width: 5em;
+    font-size: 1em;
+}
+
+.alternates i{
+    color: rgb(245, 37, 71);
+}
+
+.user-options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.user-options a{
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-user{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8em;
+    border-style: none;
+    padding: 0.7em;
+    border-radius: 2em;
+    box-shadow: 1px 0px 4px black;
+}
+
+.dropdown-options{
+    display: none;
+    position: absolute;
+    margin-top: 17em;
+    margin-right: 5em;
+    padding: 1em;
+    min-width: 160px;
+    background-color: white;
+    border-style: none;
+    box-shadow: 1px 0px 4px black;
+    border-radius: 1em;
+    gap: 0.5em;
+    z-index: 1;
+}
+
+.dropdown-user:hover .dropdown-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: flex-start;
+}
+
+.cards{
+    margin-top: 2em;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2em;
+    padding: 1em;
+    width: 25%;
+    box-shadow: 1px 0px 4px black;
+    border-radius: 1em;
+}
+
+/* footer */
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-content: space-evenly;
+    gap: 10em;
+    box-shadow: 1px 0px 4px black;
+    padding: 1em;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+}
+footer a{
+    text-decoration: none;
+    color: black;
+}
+.left-foot{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5em;
+}
+
+/* singup form */
+
+.signup{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+    background-color:white;
+    width: 50%;
+    margin: auto;
+    border-radius: 1em;
+    box-shadow: 1px 0px 4px rgb(235, 51, 82);
+
+}
+.signup-form h3{
+    text-align: center;
+}
+
+
+
