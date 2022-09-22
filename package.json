@@ -1,0 +1,28 @@
+{
+  "name": "airbnb-clone",
+  "version": "1.0.0",
+  "description": "Clone of airbnb website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "airbnb"
+  ],
+  "author": "Sushant Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "hbs": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7"
+  }
+}
