@@ -18,14 +18,18 @@ router.post('/booking', authenticate, async (req, res) => {
         console.log(req.userValues.pEmail);
         let pEmail = req.userValues.pEmail;
         const userRoomData = await bookingModel.findOne({ userID: pEmail });
-        let propertyIdAlreadyBooked = userRoomData.propertyID;
-        console.log("Property Id of guest: " + propertyIdAlreadyBooked);
-        let propertyIDBookingNow = req.body.propertyID;
-        console.log(" room ID from room model:" + propertyIDBookingNow);
-        if (propertyIDBookingNow == propertyIdAlreadyBooked) {
+        console.log(userRoomData);
+        let propertyIdAlreadyBooked;
+        let propertyIDBookingNow;
+        if(userRoomData){
+            propertyIdAlreadyBooked = userRoomData.propertyID;
+            console.log("Property Id of guest: " + propertyIdAlreadyBooked);
+            propertyIDBookingNow = req.body.propertyID;
+            console.log(" room ID from room model:" + propertyIDBookingNow);
+            if (propertyIDBookingNow == propertyIdAlreadyBooked) {
             console.log("Room is already booked");
             res.redirect('/errorBooking');
-
+            }
         } else {
             //for saving the data
             const { userID, propertyID, checkinDate, checkoutDate, paymentType, roomBooked, totalPrice } = req.body;
