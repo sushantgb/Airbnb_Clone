@@ -1,3 +1,4 @@
+//for giving  numeric product ID in incremented order to rooms
 const mongoose = require("mongoose");
 
 //creating a collection schema for auto increment of room ID

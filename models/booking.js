@@ -1,14 +1,18 @@
+/* booking schema for guest user */
 const mongoose = require('mongoose');
 
 let bookingDetails = new mongoose.Schema({
-    bookingID: String,
-    bookingDate: String,
+    bookingDate: {
+        type: Date,
+        default: Date.now()
+    },
     userID: String,
-    checkinDate: String,
-    checkoutDate: String,
-    propertyID: String,
+    propertyID: Number,
+    checkinDate: Date,
+    checkoutDate: Date,
     paymentType: String,
-    roomBooked: String
+    roomBooked: Number,
+    totalPrice: Number
 });
 
 let bookingModel = mongoose.model('booking', bookingDetails);

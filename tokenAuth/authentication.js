@@ -1,5 +1,4 @@
-//authentication middleware
-
+//authentication middleware by JWT
 const jwt = require('jsonwebtoken');
 const cookieParse = require('cookie-parser');
 const userModel = require('../models/register');
@@ -20,8 +19,8 @@ const Authenticate = async(req, res, next) =>{
 
         next();
     }catch(err){
-        res.status(401).send("Unautherised");
-        console.log(err);
+        res.sendFile("F:/Codes/Airbnb/views/index.html");
+        console.log("Unautherised | Landing to home page | User is not logged in");
     }
 }
 

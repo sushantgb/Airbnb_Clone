@@ -18,6 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+    <!-- font awesome icons -->
+    <script src="https://kit.fontawesome.com/25d4b612b3.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -25,28 +27,30 @@
     <nav>
         <!-- logo -->
         <div class="logo">
-            <img src="css/logoAir.webp" alt="airbnb website logo pink">
+            <a href="#"><img src="css/logoAir.webp" alt="airbnb website logo pink"></a> 
         </div>
         <!-- display middle options and search bar -->
         <div class="alternates">
-            <a href="#">Anywhere | </a>
-            <a href="#">Any Week | </a>
-            <input type="text" placeholder="Add Guests">
+            <a href="#">Anywhere </a>
+            <span> | </span>
+            <a href="#">Any Week </a>
+            <span> | </span>
+            <input type="text" placeholder="Search Room" id="searchBar">
             <i class="bi bi-search"></i>
         </div>
+        <!-- dropdown option with the profile button -->
         <div class="user-options">
             <div>
                 <a href="#" id="userNameDisplay">Username</a>
             </div>
             <div class="dropdown-user">
                 <i class="bi bi-list"></i>
-                <i class="bi bi-person-fill"></i>
+                <span id="userImage"><i class="bi bi-person-fill"></i></span>
                 <div class="dropdown-options">
                     <a href="#" id="host-link">Host your room</a>
                     <a href="#" id="published-link">View your rooms</a>
                     <hr>
                     <a href="#" id="contact-link">Contact Us</a>
-                    <a href="#">Help</a>
                     <hr>
                     <form action="/logout" method="POST">
                         <button type="submit" id="logout-link">Log out</button>
@@ -55,55 +59,22 @@
             </div>
         </div>
     </nav>
-    <section class="options">
+    <!-- to display the rooms published by user (host) -->
+    <section class="userPublicationDetailSection">
+        <div class="bookHead">
+            <h4>Your Bookings</h4>
+            <button class="cancelBookDetailsBtn" type="button"><i class="bi bi-x-square-fill"></i></button>
+        </div>
+        <hr style="width: 100%">
+        <section class="userPublicationDetails">
 
+        </section>
     </section>
+    <!-- to display the available rooms -->
     <section class="cards">
-        <!-- <div class="container text-center">
-            <div class="row">
-              <div class="col">
-                <div class="card" style="width: 100%;">
-                    <img src="https://i.pinimg.com/564x/77/99/13/77991395207ba6de19545656fe606afc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-              </div>
-              <div class="col">
-                <div class="card" style="width: 100%;">
-                    <img src="https://i.pinimg.com/564x/77/99/13/77991395207ba6de19545656fe606afc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-              </div>
-              <div class="col">
-                <div class="card" style="width: 100%;">
-                    <img src="https://i.pinimg.com/564x/77/99/13/77991395207ba6de19545656fe606afc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-              </div>
-              <div class="col">
-                <div class="card" style="width: 100%;">
-                    <img src="https://i.pinimg.com/564x/77/99/13/77991395207ba6de19545656fe606afc.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div> -->
+        
     </section>
+    <!-- forms for various purposes -->
     <section class="register">
         <button class="cancelBtn" type="button"><i class="bi bi-x-square-fill"></i></button>
         <div class="product-form">
@@ -112,20 +83,21 @@
             <!-- for registering the room -->
             <form action="/rooms" method="POST" enctype="multipart/form-data">
                 <div class="form-section1">
-                    <input type="text" name="name" id="name" placeholder="Room Heading">
-                    <input type="text" name="city" id="city" placeholder="City">
-                    <input type="text" name="state" id="state" placeholder="State">
-                    <input type="text" name="country" id="country" placeholder="Country">
+                    <input type="text" name="name" id="name" placeholder="Room Heading" required>
+                    <input type="text" name="city" id="city" placeholder="City" required>
+                    <input type="text" name="state" id="state" placeholder="State" required>
+                    <input type="text" name="country" id="country" placeholder="Country" required>
                 </div>
                 <div class="form-section2">
-                    <input type="text" name="price" id="price" placeholder="Price">
-                    <input type="text" name="beds" id="beds" placeholder="Number of beds available">
-                    <input type="text" name="maxAccommodate" id="maxAccommodate" placeholder="Maximum accommodation">
-                    <input type="text" name="owner" id="owner" placeholder="Room Owner">
+                    <input type="text" name="price" id="price" placeholder="Price" required>
+                    <input type="text" name="beds" id="beds" placeholder="Number of beds available" required>
+                    <input type="text" name="maxAccommodate" id="maxAccommodate" placeholder="Maximum accommodation" required>
+                    <input type="text" name="owner" id="owner" placeholder="Room Owner" required>
                 </div>
                 <hr>
                 <textarea name="description" id="description" cols="30" rows="10"
                     placeholder="Enter description of your room"></textarea>
+                <input type="email" name="ownerEmail" id="ownerEmail" required>
                 <hr>
                 <div class="form-section3">
                     <h5>Amenities</h5>
@@ -170,25 +142,27 @@
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
-                    <label for="images">Upload image of the room</label>
+                    <label for="images">Upload atleast five image of the room/location</label>
                     <input type="file" name="images" id="images" multiple>
                 </div>
                 <button class="roomBtn" type="submit">Publish</button>
             </form>
         </div>
+        <!-- contact us form -->
         <div class="contact-form">
             <h3>Contact Us</h3>
             <hr>
             <h2>Write your query or suggestion to us.</h2>
-            <form action="" method="">
-                <input type="text" name="userName" id="userName" placeholder="Your name">
-                <input type="email" name="userEmail" id="userEmail" placeholder="Your email">
+            <form action="/contactUsForm" method="POST" id="contactForm">
+                <input type="text" name="userName" id="userName" placeholder="Your name" required>
+                <input type="email" name="userEmail" id="userEmail" placeholder="Your email" required>
                 <textarea name="userQuery" id="userQuery" cols="30" rows="10"
-                    placeholder="Write your query/suggestion/complaint"></textarea>
+                    placeholder="Write your query/suggestion/complaint" required></textarea>
                 <button class="contactSubmitBtn" type="submit">Submit</button>
             </form>
         </div>
     </section>
+    <!-- footer section with dummy links -->
     <footer>
         <div class="left-foot">
             <p>
@@ -197,10 +171,15 @@
             <p>
                 Airbnb logo is copyright of Airbnb, Inc.
             </p>
-            <a href="#">Privacy &bullet; </a>
-            <a href="#">Terms &bullet;</a>
-            <a href="#">Company &bullet;</a>
-            <a href="#">Destinations</a>
+            <div class="dummyLink">
+                <a href="#">Privacy</a>
+                <span>&bullet;</span>
+                <a href="#">Terms</a>
+                <span>&bullet;</span>
+                <a href="#">Company</a>
+                <span>&bullet;</span>
+                <a href="#">Destinations</a>
+            </div>
         </div>
         <div class="right-foot">
             <a href="#">Support & Resources</a>

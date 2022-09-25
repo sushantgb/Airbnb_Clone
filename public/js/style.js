@@ -1,4 +1,12 @@
+/* basic front end actions for landing page(index) */
+
 //dynamic controls for registration pages
+
+//blank link 'become a host' leads to signup Form
+let becomeHostLink = document.getElementById('becomeHost');
+
+//help link
+let helpLink = document.getElementById('helpLink');
 
 //links to open forms
 let signUp = document.getElementById('signup-link');
@@ -27,6 +35,7 @@ let agreeBtn = document.getElementById('agreeBtn');
 let registerSection = document.querySelector('.register');
 let signupDiv = document.querySelector('.signup-form');
 let loginDiv = document.querySelector('.login-form');
+let helpSection = document.getElementById('help-message');
 
 //cancel button to close form
 let cancelBtn = document.querySelector('.cancelBtn');
@@ -39,6 +48,10 @@ cancelBtn.addEventListener('click',()=>{
 
 //events of buttons and links
 signUp.addEventListener('click', ()=>{
+    registerSection.style.display = "flex";
+    signupDiv.style.display = "flex";
+});
+becomeHostLink.addEventListener('click', ()=>{
     registerSection.style.display = "flex";
     signupDiv.style.display = "flex";
 });
@@ -72,6 +85,35 @@ logIn.addEventListener('click', ()=>{
     loginDiv.style.display = "flex";
 });
 
+//help-instructions
+helpLink.addEventListener('click', ()=>{
+    helpSection.style.display = "flex";
+})
+let cancelHelp = document.querySelector('.closeHelpBtn');
+cancelHelp.addEventListener('click', ()=>{
+    helpSection.style.display = "none";
+})
+
+//to search rooms from searchbar
+
+let inputVal = document.getElementById("searchBar");
+inputVal.addEventListener('keyup', () => {
+    let indexDiv = document.querySelector('.cards');
+    let a = indexDiv.querySelectorAll('.blocks');
+    let searchValue = inputVal.value.toLowerCase();
+    console.log("search value: " + searchValue);
+
+    for (let i = 0; i < a.length; i++) {
+        let matchVal = a[i];
+        console.log(matchVal);
+        console.log("index of search value " + matchVal.innerHTML.toLowerCase().indexOf(searchValue));
+        if (matchVal.innerHTML.toLowerCase().indexOf(searchValue) > -1) {
+            matchVal.style.display = "";
+        } else {
+            matchVal.style.display = "none";
+        }
+    }
+}) 
 
 
 

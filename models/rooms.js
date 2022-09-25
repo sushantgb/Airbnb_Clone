@@ -27,6 +27,7 @@ let rooms = new mongoose.Schema({
         type: String,
         required: true
     },
+    ownerEmail: String,
     price:{
         type: Number,
         required: true
@@ -75,6 +76,7 @@ let rooms = new mongoose.Schema({
         type: String,
         required: true
     },
+    ratings: Array,
     images: Array
 });
 

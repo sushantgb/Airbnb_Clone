@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-
+//schema for comments and ratings
 let userComment = new mongoose.Schema({
-    reviewID: String,
     userID: String,
-    reviewDate: String,
-    propertyID: String,
+    propertyID: Number,
     rating: Number,
     reviewHead: String,
     reviewDescription: String

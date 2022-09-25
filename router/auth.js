@@ -1,6 +1,10 @@
+/* authentication routes for multiple purposes - 
+signup - login and getting data */
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const express = require('express');
+const multer = require('multer');
 const authenticate = require('../tokenAuth/authentication');
 const router = express.Router();
 require("../db/conn");
@@ -8,12 +12,40 @@ require("../db/conn");
 //using the models
 const roomModel = require('../models/rooms');
 const userModel = require('../models/register');
+const bookingModel = require('../models/booking');
 //console.log("Room details: "+ roomModel);
 //console.log("User details: "+ userModel);
 
-//creating route, can use app.get method as well.
-router.get('/', (req, res)=>{
-    res.sendFile("F:/Codes/Airbnb/views/index.html");
+//for profile image upload
+const Storage = multer.diskStorage({
+    destination: function (req, file, cb){
+        cb(null, './public/profileUpload');
+    },
+    filename: function (req, file, cb){
+        cb(null, Date.now()+"-"+file.originalname);
+    }
+})
+//middleware to upload file_
+const uploadFile = multer({
+    storage:Storage
+}).single("profileImg");
+
+//route for home page as well as to authenticate user for auto login if user is already logged in
+router.get('/', authenticate, (req, res)=>{
+    console.log("user is: "  + req.userValues.userType);
+    let userAuthenticate = req.userValues;
+    try{
+        if(userAuthenticate){
+        if(userAuthenticate.userType == 'guest'){
+            res.redirect('/loginGuest');
+        }else {
+            res.redirect('/loginHost');
+        }
+    }}
+    catch(err){
+        res.sendFile("F:/Codes/Airbnb/views/index.html");
+    }
+
     // console.log("inside home");
     // roomModel.findOne({}, (err, docs)=>{
     //     if(err){
@@ -36,7 +68,7 @@ router.get('/failureSignup', (req, res)=>{
 });
 
 //routers for failed login ---
-router.get('/failure', authenticate, (req, res)=>{
+router.get('/failure', (req, res)=>{
     res.sendFile("F:/Codes/Airbnb/views/errorPageLogin.html");
 });
 
@@ -52,11 +84,9 @@ router.post('/redirection', (req, res)=>{
 //for logout --
 router.post('/logout', authenticate, async(req, res)=>{
     try{
-        console.log(req.userValues);
         res.clearCookie('jwtoken');
         console.log("user logged out");
         await req.userValues.save();
-        console.log(req.userValues);
         return res.redirect('/');
     }catch(err){
         console.log(err);
@@ -64,7 +94,9 @@ router.post('/logout', authenticate, async(req, res)=>{
 })
 
 //for signup details
-router.post('/registration', async(req, res)=>{
+router.post('/registration', uploadFile , async(req, res)=>{
+    console.log(req.file);
+    
     const{pFname, pLname, pDob, pEmail, pPass, phone, gender, country, userType} = req.body;
 
     try{
@@ -75,7 +107,7 @@ router.post('/registration', async(req, res)=>{
             return res.redirect('/failureSignup');
         }
 
-        const user = new userModel({pFname, pLname, pDob, pEmail, pPass, phone, gender, country, userType});
+        const user = new userModel({pFname, pLname, pDob, pEmail, pPass, phone, gender, country, userType, profileImg: req.file.filename});
         await user.save();
         //console.log(res.status(200).send("User registered successfully"));
         console.log(req.body);
@@ -86,16 +118,51 @@ router.post('/registration', async(req, res)=>{
     }
 });
 
-//for login
+//for login & sending  values
 router.get('/loginHost', authenticate, (req, res)=>{
     res.sendFile("F:/Codes/Airbnb/views/loginHost.html");
-})
+});
 router.get('/loginHostAuth', authenticate,(req, res)=>{
     res.send(req.userValues);
-})
+});
+//router for getting user room details (Host)
+router.get('/userRoomFetchHost', authenticate, async(req, res)=>{
+        //for receiving the users room data
+        try{
+            console.log(req.userValues.pEmail);
+            let pEmail = req.userValues.pEmail;
+            const userRoomData = await roomModel.find({ownerEmail: pEmail});
+            res.send(userRoomData);
+        }catch(err){
+            console.log(err);
+        }
+});
+//router for getting user room details (Guest)
+router.get('/userRoomFetchGuest', authenticate, async(req, res)=>{
+    //for receiving the users room data
+    try{
+        console.log(req.userValues.pEmail);
+        let pEmail = req.userValues.pEmail;
+        const userRoomData = await bookingModel.find({userID: pEmail});
+        console.log(userRoomData);
+        let propertyId = [];
+        let userBookedRoom;
+        for(let i=0; i<userRoomData.length; i++){
+            propertyId.push(userRoomData[i].propertyID);
+            console.log(propertyId);
+        }
+        userBookedRoom = await roomModel.find({propertyID: propertyId});
+        console.log(userBookedRoom);
+        res.send(userBookedRoom);
+
+    }catch(err){
+        console.log(err);
+    }
+});
+
 router.get('/loginGuest', authenticate, (req, res)=>{
     res.sendFile("F:/Codes/Airbnb/views/loginGuest.html");
-})
+});
 
 router.post('/login', async(req, res)=>{
     try{
@@ -108,14 +175,14 @@ router.post('/login', async(req, res)=>{
 
         //validation by database
         const userLogin = await userModel.findOne({pEmail: loginEmail});
+        const passMatch = await bcrypt.compare(loginPass, userLogin.pPass);
 
         //when email is found
-        if(userLogin){
+        if(userLogin && passMatch){
             //for debugging purpose
             console.log("User Type: " + userLogin.userType);
 
             //matching password
-            const passMatch = await bcrypt.compare(loginPass, userLogin.pPass);
             //tokens
             const token = await userLogin.generateAuthToken();
             console.log(token);
@@ -125,20 +192,19 @@ router.post('/login', async(req, res)=>{
                 //adding on http
                 httpOnly: true
             });
-            //verifying for password
-            if(!passMatch){
-                console.log("Invalid credentials");
-                return res.redirect('/failure');
-                //res.status(400).json({message: "Invalid credentials"});
-            }else{
-                if(userLogin.userType === "host"){
-                    console.log("host logged in successfully");
-                    return res.redirect('/loginHost');
-                }else if(userLogin.userType === "guest"){
-                    console.log("guest logged in successfully");
-                    return res.redirect('/loginGuest');
-                }
+            //checking userType
+            if(userLogin.userType === "host"){
+                console.log("host logged in successfully");
+                return res.redirect('/loginHost');
+            }else if(userLogin.userType === "guest"){
+                console.log("guest logged in successfully");
+                return res.redirect('/loginGuest');
             }
+            
+        }else if(!passMatch){
+            console.log("Invalid credentials");
+            return res.redirect('/failure');
+            //res.status(400).json({message: "Invalid credentials"});
         }else{
             //res.status(400).json({message: "Invalid credentials"});
             console.log("Invalid credentials");
@@ -146,7 +212,8 @@ router.post('/login', async(req, res)=>{
         }
 
     }catch(err){
-        res.status(400).json({message: "Some Error Occurred. Please try again"});
+        return res.redirect('/failureExistance');
+        //res.status(400).json({message: "Some Error Occurred. Please try again"});
         console.log(err);
     }
 })

@@ -18,6 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
+    <!-- font awesome icons -->
+    <script src="https://kit.fontawesome.com/25d4b612b3.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -25,18 +27,20 @@
     <nav>
         <!-- logo -->
         <div class="logo">
-            <img src="css/logoAir.webp" alt="airbnb website logo pink">
+            <a href="#"><img src="css/logoAir.webp" alt="airbnb website logo pink"></a> 
         </div>
         <!-- display middle options and search bar -->
         <div class="alternates">
-            <a href="#">Anywhere | </a>
-            <a href="#">Any Week | </a>
-            <input type="text" placeholder="Add Guests">
+            <a href="#">Anywhere </a>
+            <span> | </span>
+            <a href="#">Any Week </a>
+            <span> | </span>
+            <input type="text" placeholder="Search Room" id="searchBar">
             <i class="bi bi-search"></i>
         </div>
         <div class="user-options">
             <div>
-                <a href="#">Become a Host</a>
+                <a href="#" id="becomeHost">Become a Host</a>
             </div>
             <div class="dropdown-user">
                 <i class="bi bi-list"></i>
@@ -45,15 +49,42 @@
                     <a href="#" id="signup-link">Sign up</a>
                     <a href="#" id="login-link">Log in</a>
                     <hr>
-                    <a href="#">Host your home</a>
-                    <a href="#">Host an experience</a>
-                    <a href="#">Help</a>
+                    <a href="#" id="helpLink">Help/Instructions</a>
                 </div>
             </div>
         </div>
     </nav>
-    <section class="options">
-
+    <!-- section to display when a first time user clicks help button -->
+    <section id="help-message">
+        <button class="closeHelpBtn" type="button"><i class="bi bi-x-square-fill"></i></button>
+        <div class="topDiv">
+            <h1 style="color: rgb(243, 50, 82)">Instructions to use website</h1>
+        </div>
+        <div>
+            <p>It is an Airbnb Clone Website Created for educational purposes</p>
+            <p>Your can do <strong>following activities</strong> on website</p>
+            <ul>
+                <li>You can publish/post rooms as <strong>host user</strong></li>
+                <li>You can book rooms as <strong>guest</strong> user</li>
+                <li>You can <strong>view your booked/published</strong> rooms</li>
+                <li>You can rate rooms as <strong>guest</strong> user</li>
+                <li>You can view details of <strong>room in expanded view</strong></li>
+                <li>You can <strong>calculate the price</strong> of booking</li>
+                <li>A <strong>host</strong> user cannot book rooms but can check price of rooms.</li>
+                <li>A <strong>host</strong> can delete her/his published rooms</li>
+                <li>There is a <strong>search bar</strong> which can be used to search rooms</li>
+                <li>You can also use <strong>Contact Us</strong> form as both guest and host user</li>
+            </ul>
+            <p><Strong>Instructions for signup/login</Strong></p>
+            <ul>
+                <li>You should hover the button on right-top of the website.</li>
+                <li>There you'll find option to signup.</li>
+                <li>Make sure to choose wisely which <strong>type of user</strong> you want to be while filling the form.</li>
+                <li>Fill the form and upload a profile pictue and Done!</li>
+                <li>Again move to the same button and select login option to use website.</li>
+                <li><strong>Enjoy exploration of this sample website</strong></li>
+            </ul>
+        </div>
     </section>
     <section class="cards">
 
@@ -87,7 +118,7 @@
                 <input type="password" placeholder="Password" id="sPass">
                 <button id="agreeBtn" type="button">Agree and Continue</button>
             </form>
-            <form action="/registration" method="POST" id="complete-profile">
+            <form action="/registration" method="POST" id="complete-profile" enctype="multipart/form-data">
                 <input type="text" name="pFname" id="pFname" placeholder="First Name">
                 <input type="text" name="pLname" id="pLname" placeholder="Last Name">
                 <input type="date" name="pDob" id="pDob" placeholder="Enter Date of Birth">
@@ -104,10 +135,13 @@
                     <option value="guest">Guest</option>
                     <option value="host">Host</option>
                 </select>
+                <label for="profileImg">Pick a Profile Picture</label>
+                <input type="file" name="profileImg" id="profileImg">
                 <button type="submit" id="saveBtn">Save Profile</button>
             </form>
         </div>
     </section>
+    <!-- footer with random dummy links -->
     <footer>
         <div class="left-foot">
             <p>
@@ -116,10 +150,15 @@
             <p>
                 Airbnb logo is copyright of Airbnb, Inc.
             </p>
-            <a href="#">Privacy &bullet; </a>
-            <a href="#">Terms &bullet;</a>
-            <a href="#">Company &bullet;</a>
-            <a href="#">Destinations</a>
+            <div class="dummyLink">
+                <a href="#">Privacy</a>
+                <span>&bullet;</span>
+                <a href="#">Terms</a>
+                <span>&bullet;</span>
+                <a href="#">Company</a>
+                <span>&bullet;</span>
+                <a href="#">Destinations</a>
+            </div>
         </div>
         <div class="right-foot">
             <a href="#">Support & Resources</a>

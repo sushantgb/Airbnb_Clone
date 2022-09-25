@@ -1,3 +1,4 @@
+/* registration schema for user */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -36,6 +37,10 @@ let userDetails = new mongoose.Schema({
         required: true
     },
     userType: {
+        type: String,
+        required: true
+    },
+    profileImg: {
         type: String,
         required: true
     },

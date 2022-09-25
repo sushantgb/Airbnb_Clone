@@ -1,3 +1,4 @@
+//route for rooms
 const express = require('express');
 const multer = require('multer');
 const router = express.Router();
@@ -6,6 +7,7 @@ require("../db/conn");
 //using the models
 const roomModel = require('../models/rooms');
 const counterModel = require('../models/sequence');
+const ratingModel = require('../models/comments');
 //console.log("Room details: " + roomModel);
 //console.log("counter details: " + counterModel);
 
@@ -40,7 +42,11 @@ router.post('/rooms', uploadFile, (req, res) => {
         { new: true }, async(err, data) => {
             let sequenceId;
             //when no data in the collection
+            if(err){
+                console.log("error in sequence");
+            }
             if (data == null) {
+                sequenceId = 0;
                 const newIncrement = new counterModel({
                     id: "autoSequence",
                     sequence: 1
@@ -52,10 +58,10 @@ router.post('/rooms', uploadFile, (req, res) => {
             }
 
             //saving room data with incremented ID
-            const { name, city, state, country, owner, price, beds, maxAccommodate, description, parking, wifi, ac, laundry, kitchen, smokeAlarm, petsPermission, breakfast} = req.body;
+            const { name, city, state, country, owner, ownerEmail ,price, beds, maxAccommodate, description, parking, wifi, ac, laundry, kitchen, smokeAlarm, petsPermission, breakfast} = req.body;
 
             try {
-                const room = new roomModel({propertyID:sequenceId, name, city, state, country, owner, price, beds, maxAccommodate, description, parking, wifi, ac, laundry, kitchen, smokeAlarm, petsPermission, breakfast, images:[fileNameData]});
+                const room = new roomModel({propertyID:sequenceId, name, city, state, country, owner, ownerEmail, price, beds, maxAccommodate, description, parking, wifi, ac, laundry, kitchen, smokeAlarm, petsPermission, breakfast, images:[fileNameData]});
                 
                 await room.save();
                 return res.redirect('/loginHost');
@@ -65,7 +71,7 @@ router.post('/rooms', uploadFile, (req, res) => {
         }
     )
 });
-
+//for getting room data
 router.get('/rooms',async(req, res)=>{
     try{
         await roomModel.find({},(err, docs)=>{
@@ -79,19 +85,16 @@ router.get('/rooms',async(req, res)=>{
         console.log(err);
     }
 });
-
-router.get('/imageGet', async(req, res)=>{
+//api to delete the room entry by host
+router.post('/deleteRoom', async(req, res)=>{
+    const {propertyID} = req.body;
+    console.log(req.body);
     try{
-        await roomModel.find({},(err, doc)=>{
-            if(err){
-                console.log(err);
-            }
-            else{
-                res.json(doc);
-            }
-        })
+        const deleteEntry = await roomModel.findOneAndDelete({propertyID: propertyID});
+        console.log(deleteEntry);
+        return res.redirect('/loginHost');
     }catch(err){
-        console.log(err);
+        console.log(err)
     }
 })
 module.exports = router;
