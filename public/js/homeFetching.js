@@ -103,6 +103,7 @@ async function fetchData() {
                                             <input type="date" class="dateCheckIn" min="" value="">
                                             <label for="dateCheckOut">Pick a Check-in Date</label>
                                             <input type="date" class="dateCheckOut" value="">
+                                            <input type="text" class="numRoom" placeholder="Number of room to book">
                                             <button type="submit" class="dateBtn">Calculate price</button>
                                         </form>
                                         <h6 class=totPrice></h6>
@@ -172,6 +173,7 @@ async function fetchData() {
                 let dateBtn = document.querySelectorAll('.dateBtn');
                 let bookBtn = document.querySelectorAll('.bookBtn');
                 let priceVal = document.querySelectorAll('.priceValue');
+                let roomNum = document.querySelectorAll('.numRoom');
                 let totPrice = document.querySelectorAll('.totPrice');
 
 
@@ -194,9 +196,10 @@ async function fetchData() {
                             let startDate = new Date(dateStartField[k].value);
                             let endDate = new Date(dateEndField[k].value);
                             let priceRoom = priceVal[k].textContent;
+                            let roomValue = roomNum[k].value;
                             let millisecPerDay = 1000 * 60 * 60 * 24;
                             let daysCount = Math.floor((endDate - startDate) / millisecPerDay);
-                            let totalPrice = priceRoom * daysCount;
+                            let totalPrice = priceRoom * daysCount * roomValue;
                             console.log(totalPrice);
                             totPrice[k].innerHTML = `Total Cost for ${daysCount} days is &#8377 ${totalPrice}`;
                         })
