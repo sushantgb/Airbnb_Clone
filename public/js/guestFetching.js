@@ -4,7 +4,7 @@ data from database to display on the guest page */
 
 //for fetching products on page --- available rooms
 async function fetchRoomData() {
-    await fetch("http://localhost:5000/rooms")
+    await fetch("/rooms")
         .then((res) => {
             const responses = res.json();
             console.log(responses);

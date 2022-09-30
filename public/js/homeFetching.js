@@ -3,7 +3,7 @@ data from database to display on the home page */
 
 //for fetching products on home page - available rooms
 async function fetchData() {
-    await fetch("http://localhost:5000/rooms")
+    await fetch("/rooms")
         .then((res) => {
             const responses = res.json();
             console.log(responses);
