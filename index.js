@@ -33,7 +33,7 @@ const Ratings = require("./models/comments");
 app.use(require('./router/auth'));
 app.use(require('./router/routes'));
 app.use(require('./router/bookRate'));
-app.use(require('./tokenAuth/authentication'));
+app.use(require('./router/JWTauthentication'));
 
 //listening
 app.listen(PORT, ()=>{

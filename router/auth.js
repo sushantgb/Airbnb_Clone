@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const multer = require('multer');
-const authenticate = require('../tokenAuth/authentication');
+const path = require('path');
+const authenticate = require('./JWTauthentication');
 const router = express.Router();
 require("../db/conn");
 
@@ -13,6 +14,7 @@ require("../db/conn");
 const roomModel = require('../models/rooms');
 const userModel = require('../models/register');
 const bookingModel = require('../models/booking');
+const { __express } = require('hbs');
 //console.log("Room details: "+ roomModel);
 //console.log("User details: "+ userModel);
 
@@ -43,7 +45,7 @@ router.get('/', authenticate, (req, res)=>{
         }
     }}
     catch(err){
-        res.sendFile('index.html');
+        res.sendFile(path.join(__dirname, '/views/index.html'));
     }
 
     // console.log("inside home");
@@ -59,21 +61,21 @@ router.get('/', authenticate, (req, res)=>{
 
 //routers for successful registration ---
 router.get('/success', (req, res)=>{
-    res.sendFile("message.html");
+    res.sendFile(path.join(__dirname, '/views/message.html'));
 });
 
 //if user already exist ---
 router.get('/failureSignup', (req, res)=>{
-    res.sendFile("errorSignup.html");
+    res.sendFile(path.join(__dirname, '/views/errorSignup.html'));
 });
 
 //routers for failed login ---
 router.get('/failure', (req, res)=>{
-    res.sendFile("errorPageLogin.html");
+    res.sendFile(path.join(__dirname, '/views/errorPageLogin.html'));
 });
 
 router.get('/failureExistance', (req, res)=>{
-    res.sendFile("errorPageLoginExist.html");
+    res.sendFile(path.join(__dirname, '/views/errorPageLoginExist.html'));
 });
 
 //for redirecting to home page
@@ -120,7 +122,7 @@ router.post('/registration', uploadFile , async(req, res)=>{
 
 //for login & sending  values
 router.get('/loginHost', authenticate, (req, res)=>{
-    res.sendFile("loginHost.html");
+    res.sendFile(path.join(__dirname, '/views/loginHost.html'));
 });
 router.get('/loginHostAuth', authenticate,(req, res)=>{
     res.send(req.userValues);
@@ -161,7 +163,7 @@ router.get('/userRoomFetchGuest', authenticate, async(req, res)=>{
 });
 
 router.get('/loginGuest', authenticate, (req, res)=>{
-    res.sendFile("loginGuest.html");
+    res.sendFile(path.join(__dirname, '/views/loginGuest.html'));
 });
 
 router.post('/login', async(req, res)=>{

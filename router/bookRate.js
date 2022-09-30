@@ -1,7 +1,7 @@
 //routes for booking and rating
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../tokenAuth/authentication');
+const authenticate = require('./JWTauthentication');
 require("../db/conn");
 
 //using the models for booking and comments/rating and for contactUS form
@@ -77,7 +77,7 @@ router.get('/bookingDate', authenticate, async (req, res) => {
 })
 //error router for already booked room
 router.get('/errorBooking', (req, res) => {
-    res.sendFile("errorBooking.html");
+    res.sendFile(path.join(__dirname, '/views/errorBooking.html'));
 })
 
 //for rating-comment purposes

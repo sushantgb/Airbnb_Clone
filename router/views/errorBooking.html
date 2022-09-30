@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb clone</title>
+    <!-- css stylesheet-->
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- bootstrap CDN -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav>
+        <!-- logo -->
+        <div class="logo">
+            <img src="css/logoAir.webp" alt="airbnb website logo pink">
+        </div>
+        <!-- display middle options and search bar -->
+        <div class="alternates">
+            <a href="#">Anywhere  | </a>
+            <a href="#">Any Week  | </a>
+            <input type="text" placeholder="Add Guests">
+            <i class="bi bi-search"></i>
+        </div>
+        <div class="user-options">
+            <div>
+                <a href="#">Become a Host</a>
+            </div>
+            <div class="dropdown-user">
+                <i class="bi bi-list"></i>
+                <i class="bi bi-person-fill"></i>
+            </div>
+        </div>
+    </nav>
+    <!-- message box -->
+    <section id="error-message">
+        <div>
+            <h1>Already Booked !!</h1>
+        </div>
+        <div>
+            <p>You have Already booked this room</p>
+            <!-- redirecting to home -->
+            <form action="/redirection" method="POST">
+                <button type="submit" id="contBtn">Continue</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="left-foot">
+            <p>
+                &copy; Sushant Kumar |
+            </p>
+            <p>
+                Airbnb logo is copyright of Airbnb, Inc.
+            </p>
+            <a href="#">Privacy &bullet; </a>
+            <a href="#">Terms &bullet;</a>
+            <a href="#">Company &bullet;</a>
+            <a href="#">Destinations</a>
+        </div>
+        <div class="right-foot">
+            <a href="#">Support & Resources</a>
+            <i class="bi bi-caret-up-fill"></i>
+        </div>
+    </footer>
+</body>
+</html>
