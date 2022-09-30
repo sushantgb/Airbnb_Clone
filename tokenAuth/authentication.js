@@ -19,7 +19,7 @@ const Authenticate = async(req, res, next) =>{
 
         next();
     }catch(err){
-        res.sendFile("F:/Codes/Airbnb/views/index.html");
+        res.sendFile("../views/index.html");
         console.log("Unautherised | Landing to home page | User is not logged in");
     }
 }
