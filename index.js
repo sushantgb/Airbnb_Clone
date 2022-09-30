@@ -15,6 +15,7 @@ const app = express();
 //for static paths and json data
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'public/uploads')));
 app.use(express.static(path.join(__dirname, 'public/profileUpload')));
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ const Ratings = require("./models/comments");
 app.use(require('./router/auth'));
 app.use(require('./router/routes'));
 app.use(require('./router/bookRate'));
+app.use(require('./tokenAuth/authentication'));
 
 //listening
 app.listen(PORT, ()=>{
