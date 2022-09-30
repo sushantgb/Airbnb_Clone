@@ -77,7 +77,7 @@ router.get('/bookingDate', authenticate, async (req, res) => {
 })
 //error router for already booked room
 router.get('/errorBooking', (req, res) => {
-    res.sendFile("F:/Codes/Airbnb/views/errorBooking.html");
+    res.sendFile("../views/errorBooking.html");
 })
 
 //for rating-comment purposes
