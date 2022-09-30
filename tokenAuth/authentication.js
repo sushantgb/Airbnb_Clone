@@ -19,7 +19,7 @@ const Authenticate = async(req, res, next) =>{
 
         next();
     }catch(err){
-        res.sendFile("../views/index.html");
+        res.sendFile("index.html");
         console.log("Unautherised | Landing to home page | User is not logged in");
     }
 }

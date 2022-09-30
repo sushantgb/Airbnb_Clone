@@ -43,7 +43,7 @@ router.get('/', authenticate, (req, res)=>{
         }
     }}
     catch(err){
-        res.sendFile("../views/index.html");
+        res.sendFile('index.html');
     }
 
     // console.log("inside home");
@@ -59,21 +59,21 @@ router.get('/', authenticate, (req, res)=>{
 
 //routers for successful registration ---
 router.get('/success', (req, res)=>{
-    res.sendFile("../views/message.html");
+    res.sendFile("message.html");
 });
 
 //if user already exist ---
 router.get('/failureSignup', (req, res)=>{
-    res.sendFile("../views/errorSignup.html");
+    res.sendFile("errorSignup.html");
 });
 
 //routers for failed login ---
 router.get('/failure', (req, res)=>{
-    res.sendFile("../views/errorPageLogin.html");
+    res.sendFile("errorPageLogin.html");
 });
 
 router.get('/failureExistance', (req, res)=>{
-    res.sendFile("../views/errorPageLoginExist.html");
+    res.sendFile("errorPageLoginExist.html");
 });
 
 //for redirecting to home page
@@ -120,7 +120,7 @@ router.post('/registration', uploadFile , async(req, res)=>{
 
 //for login & sending  values
 router.get('/loginHost', authenticate, (req, res)=>{
-    res.sendFile("../views/loginHost.html");
+    res.sendFile("loginHost.html");
 });
 router.get('/loginHostAuth', authenticate,(req, res)=>{
     res.send(req.userValues);
@@ -161,7 +161,7 @@ router.get('/userRoomFetchGuest', authenticate, async(req, res)=>{
 });
 
 router.get('/loginGuest', authenticate, (req, res)=>{
-    res.sendFile("../views/loginGuest.html");
+    res.sendFile("loginGuest.html");
 });
 
 router.post('/login', async(req, res)=>{
