@@ -8,7 +8,7 @@ A project to implement functioning of Airbnb website by using
 
 ## Check out the static website here:
 [![Airbnb Clone](https://img.shields.io/badge/*-Airbnb_Clone_NodeJS_Railway_Portal-2ea44f?style=for-the-badge&color=F24481)](https://airbnbclone-production.up.railway.app/)
-[![Airbnb Clone](https://img.shields.io/badge/*-Airbnb_Clone_NodeJS_Cyclic_Portal-2ea44f?style=for-the-badge&color=024481)](https://fair-ruby-cougar-wear.cyclic.app/)
+[![Airbnb Clone](https://img.shields.io/badge/*-Airbnb_Clone_NodeJS_Cyclic_Portal_(Only for Display | Non-functional)-2ea44f?style=for-the-badge&color=024481)](https://fair-ruby-cougar-wear.cyclic.app/)
 
 
 ## Instructions to use website
